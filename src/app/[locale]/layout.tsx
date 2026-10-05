@@ -9,7 +9,10 @@ import { routing } from "@/i18n/routing";
 import "../globals.css";
 
 export const metadata: Metadata = {
-  title: "VocabBuilder",
+  title: {
+    default: "VocabBuilder",
+    template: "%s | VocabBuilder",
+  },
   description: "Vocabulary training app built with Next.js",
   icons: {
     icon: "/icon.svg",

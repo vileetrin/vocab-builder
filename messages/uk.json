@@ -1,10 +1,14 @@
 {
   "homeTitle": "Привіт, світе!",
+  "homeSeoTitle": "Вивчайте слова швидше",
+  "homeSeoDescription": "VocabBuilder допомагає тренувати слова, переклади, граматику та відстежувати прогрес в одному застосунку.",
   "localeLabel": "Мова інтерфейсу",
   "en": "Англійська",
   "uk": "Українська",
   "authHome": "Головна VocabBuilder",
   "registrationTitle": "Реєстрація",
+  "registrationSeoTitle": "Створення акаунта",
+  "registrationSeoDescription": "Створіть акаунт VocabBuilder, щоб почати тренувати словниковий запас і відстежувати прогрес.",
   "registrationDescription": "Щоб почати користуватися сервісом, заповніть форму реєстрації нижче. Усі поля обов'язкові:",
   "name": "Ім'я",
   "email": "Електронна пошта",
@@ -23,6 +27,10 @@
   "validationEmailInvalid": "Введіть коректну електронну пошту.",
   "validationPasswordInvalid": "Пароль має складатися з 6 англійських літер і 1 цифри.",
   "loginTitle": "Вхід",
+  "loginSeoTitle": "Вхід",
+  "loginSeoDescription": "Увійдіть у VocabBuilder, щоб продовжити тренувати словниковий запас і відстежувати прогрес.",
   "loginDescription": "Введіть дані для входу, щоб продовжити користуватися нашим сервісом:",
+  "dictionarySeoTitle": "Словник",
+  "dictionarySeoDescription": "Переглядайте збережені слова, переклади, граматичні нотатки та прогрес у вивченні лексики.",
   "wordTableHeader": "Слово · Переклад · Граматика · Прогрес"
 }

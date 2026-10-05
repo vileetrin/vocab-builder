@@ -1,10 +1,14 @@
 {
   "homeTitle": "Hello World!",
+  "homeSeoTitle": "Learn vocabulary faster",
+  "homeSeoDescription": "VocabBuilder helps you practice words, translations, grammar, and learning progress in one focused vocabulary app.",
   "localeLabel": "Interface language",
   "en": "English",
   "uk": "Ukrainian",
   "authHome": "VocabBuilder home",
   "registrationTitle": "Register",
+  "registrationSeoTitle": "Create an account",
+  "registrationSeoDescription": "Create your VocabBuilder account to start practicing vocabulary and tracking your progress.",
   "registrationDescription": "To start using our services, please fill out the registration form below. All fields are mandatory:",
   "name": "Name",
   "email": "Email",
@@ -23,6 +27,10 @@
   "validationEmailInvalid": "Enter a valid email address.",
   "validationPasswordInvalid": "The password must consist of 6 English letters and 1 number.",
   "loginTitle": "Login",
+  "loginSeoTitle": "Login",
+  "loginSeoDescription": "Log in to VocabBuilder to continue practicing vocabulary and tracking your learning progress.",
   "loginDescription": "Please enter your login details to continue using our service:",
+  "dictionarySeoTitle": "Dictionary",
+  "dictionarySeoDescription": "Review your saved words, translations, grammar notes, and vocabulary learning progress.",
   "wordTableHeader": "Word · Translation · Grammar · Progress"
 }
