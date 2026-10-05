@@ -12,12 +12,17 @@
   "showPassword": "Показати пароль",
   "hidePassword": "Сховати пароль",
   "signupFailed": "Не вдалося зареєструватися. Спробуйте ще раз.",
+  "signinFailed": "Не вдалося увійти. Спробуйте ще раз.",
   "registrationSuccess": "Реєстрація успішна.",
+  "signinSuccess": "Вхід успішний.",
   "register": "Зареєструватися",
   "registering": "Реєструємо...",
   "login": "Увійти",
+  "signingIn": "Входимо...",
   "validationNameMin": "Ім'я має містити щонайменше 2 символи.",
   "validationEmailInvalid": "Введіть коректну електронну пошту.",
-  "validationPasswordInvalid": "Пароль має містити щонайменше 6 англійських літер і 1 цифру.",
-  "loginTitle": "Вхід"
+  "validationPasswordInvalid": "Пароль має складатися з 6 англійських літер і 1 цифри.",
+  "loginTitle": "Вхід",
+  "loginDescription": "Введіть дані для входу, щоб продовжити користуватися нашим сервісом:",
+  "wordTableHeader": "Слово · Переклад · Граматика · Прогрес"
 }

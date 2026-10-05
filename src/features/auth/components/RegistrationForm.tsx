@@ -5,15 +5,16 @@ import { useMutation } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
 import { useTranslations } from "next-intl";
 
-import { signupUser } from "@/features/auth/api";
-import PasswordInput from "@/features/auth/PasswordInput";
+import { signupUser } from "@/features/auth/api/api";
+import AuthTextInput from "@/features/auth/components/AuthTextInput";
+import PasswordInput from "@/features/auth/components/PasswordInput";
 import {
   initialRegistrationValues,
   type RegistrationFormErrors,
   type RegistrationFormValues,
   validateRegistrationForm,
-} from "@/features/auth/validation";
-import { Link } from "@/i18n/navigation";
+} from "@/features/auth/api/validation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { type ApiErrorResponse } from "@/types/api";
 
 const styles = {
@@ -33,6 +34,7 @@ function getSignupErrorMessage(error: Error, fallbackMessage: string) {
 }
 
 export default function RegistrationForm() {
+  const router = useRouter();
   const t = useTranslations();
   const [values, setValues] = useState<RegistrationFormValues>(
     initialRegistrationValues,
@@ -43,6 +45,7 @@ export default function RegistrationForm() {
     onSuccess: () => {
       setValues(initialRegistrationValues);
       setErrors({});
+      router.replace("/dictionary");
     },
   });
 
@@ -86,51 +89,31 @@ export default function RegistrationForm() {
 
   return (
     <form className="flex w-full flex-col gap-4" onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="name" className="sr-only">
-          {t("name")}
-        </label>
-        <input
-          id="name"
-          name="name"
-          type="text"
-          placeholder={t("name")}
-          autoComplete="name"
-          value={values.name}
-          className={getInputClassName("name")}
-          aria-invalid={Boolean(errors.name)}
-          aria-describedby={errors.name ? "name-error" : undefined}
-          onChange={handleChange("name")}
-        />
-        {errors.name && (
-          <p id="name-error" className={styles.error}>
-            {errors.name}
-          </p>
-        )}
-      </div>
+      <AuthTextInput
+        id="name"
+        name="name"
+        type="text"
+        label={t("name")}
+        autoComplete="name"
+        value={values.name}
+        className={getInputClassName("name")}
+        errorClassName={styles.error}
+        error={errors.name}
+        onChange={handleChange("name")}
+      />
 
-      <div>
-        <label htmlFor="email" className="sr-only">
-          {t("email")}
-        </label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          placeholder={t("email")}
-          autoComplete="email"
-          value={values.email}
-          className={getInputClassName("email")}
-          aria-invalid={Boolean(errors.email)}
-          aria-describedby={errors.email ? "email-error" : undefined}
-          onChange={handleChange("email")}
-        />
-        {errors.email && (
-          <p id="email-error" className={styles.error}>
-            {errors.email}
-          </p>
-        )}
-      </div>
+      <AuthTextInput
+        id="email"
+        name="email"
+        type="email"
+        label={t("email")}
+        autoComplete="email"
+        value={values.email}
+        className={getInputClassName("email")}
+        errorClassName={styles.error}
+        error={errors.email}
+        onChange={handleChange("email")}
+      />
 
       <PasswordInput
         value={values.password}

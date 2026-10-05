@@ -12,12 +12,17 @@
   "showPassword": "Show password",
   "hidePassword": "Hide password",
   "signupFailed": "Signup failed. Try again.",
+  "signinFailed": "Login failed. Try again.",
   "registrationSuccess": "Registration successful.",
+  "signinSuccess": "Login successful.",
   "register": "Register",
   "registering": "Registering...",
   "login": "Login",
+  "signingIn": "Logging in...",
   "validationNameMin": "Name must contain at least 2 characters.",
   "validationEmailInvalid": "Enter a valid email address.",
-  "validationPasswordInvalid": "Password must contain at least 6 English letters and 1 number.",
-  "loginTitle": "Login"
+  "validationPasswordInvalid": "The password must consist of 6 English letters and 1 number.",
+  "loginTitle": "Login",
+  "loginDescription": "Please enter your login details to continue using our service:",
+  "wordTableHeader": "Word · Translation · Grammar · Progress"
 }
