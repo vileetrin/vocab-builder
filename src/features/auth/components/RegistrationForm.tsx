@@ -1,8 +1,5 @@
 "use client";
 
-import { type ChangeEvent, type SubmitEvent, useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import { isAxiosError } from "axios";
 import { useTranslations } from "next-intl";
 
 import { signupUser } from "@/features/auth/api/api";
@@ -10,12 +7,14 @@ import AuthTextInput from "@/features/auth/components/AuthTextInput";
 import PasswordInput from "@/features/auth/components/PasswordInput";
 import {
   initialRegistrationValues,
-  type RegistrationFormErrors,
   type RegistrationFormValues,
   validateRegistrationForm,
 } from "@/features/auth/api/validation";
-import { Link, useRouter } from "@/i18n/navigation";
-import { type ApiErrorResponse } from "@/types/api";
+import {
+  getAuthErrorMessage,
+  useAuthForm,
+} from "@/features/auth/hooks/useAuthForm";
+import { Link } from "@/i18n/navigation";
 
 const styles = {
   input:
@@ -25,64 +24,26 @@ const styles = {
   error: "mt-1.5 text-sm text-error",
 };
 
-function getSignupErrorMessage(error: Error, fallbackMessage: string) {
-  if (isAxiosError<ApiErrorResponse>(error)) {
-    return error.response?.data?.message ?? fallbackMessage;
-  }
-
-  return fallbackMessage;
-}
-
 export default function RegistrationForm() {
-  const router = useRouter();
   const t = useTranslations();
-  const [values, setValues] = useState<RegistrationFormValues>(
-    initialRegistrationValues,
-  );
-  const [errors, setErrors] = useState<RegistrationFormErrors>({});
-  const signupMutation = useMutation({
+  const { values, errors, mutation, handleChange, handleSubmit } = useAuthForm({
+    initialValues: initialRegistrationValues,
     mutationFn: signupUser,
-    onSuccess: () => {
-      setValues(initialRegistrationValues);
-      setErrors({});
-      router.replace("/dictionary");
+    redirectTo: "/dictionary",
+    validate: (currentValues) =>
+      validateRegistrationForm(currentValues, {
+        nameMin: t("validationNameMin"),
+        emailInvalid: t("validationEmailInvalid"),
+        passwordInvalid: t("validationPasswordInvalid"),
+      }),
+    buildPayload: (currentValues: RegistrationFormValues) => {
+      return {
+        name: currentValues.name.trim(),
+        email: currentValues.email.trim(),
+        password: currentValues.password,
+      };
     },
   });
-
-  const handleChange =
-    (field: keyof RegistrationFormValues) =>
-    (event: ChangeEvent<HTMLInputElement>) => {
-      signupMutation.reset();
-      setValues((currentValues) => ({
-        ...currentValues,
-        [field]: event.target.value,
-      }));
-      setErrors((currentErrors) => ({
-        ...currentErrors,
-        [field]: undefined,
-      }));
-    };
-
-  const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const nextErrors = validateRegistrationForm(values, {
-      nameMin: t("validationNameMin"),
-      emailInvalid: t("validationEmailInvalid"),
-      passwordInvalid: t("validationPasswordInvalid"),
-    });
-    setErrors(nextErrors);
-
-    if (Object.keys(nextErrors).length > 0) {
-      return;
-    }
-
-    signupMutation.mutate({
-      name: values.name.trim(),
-      email: values.email.trim(),
-      password: values.password,
-    });
-  };
 
   const getInputClassName = (field: keyof RegistrationFormValues) =>
     `${styles.input} ${errors[field] ? styles.inputError : styles.inputDefault}`;
@@ -126,12 +87,12 @@ export default function RegistrationForm() {
       />
 
       <div className="flex flex-col items-center justify-center gap-4">
-        {signupMutation.isError && (
+        {mutation.isError && (
           <p className={styles.error} role="alert">
-            {getSignupErrorMessage(signupMutation.error, t("signupFailed"))}
+            {getAuthErrorMessage(mutation.error, t("signupFailed"))}
           </p>
         )}
-        {signupMutation.isSuccess && (
+        {mutation.isSuccess && (
           <p className="text-sm text-success" role="status">
             {t("registrationSuccess")}
           </p>
@@ -139,9 +100,9 @@ export default function RegistrationForm() {
         <button
           type="submit"
           className="w-full rounded-[30px] bg-accent p-4 text-base font-bold text-text-on-accent disabled:cursor-not-allowed disabled:opacity-60"
-          disabled={signupMutation.isPending}
+          disabled={mutation.isPending}
         >
-          {signupMutation.isPending ? t("registering") : t("register")}
+          {mutation.isPending ? t("registering") : t("register")}
         </button>
         <Link
           href="/signin"

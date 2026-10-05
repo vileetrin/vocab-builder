@@ -14,6 +14,15 @@ type AuthLayoutProps = {
   children: ReactNode;
 };
 
+type WordTableHeaderProps = {
+  children: ReactNode;
+  className: string;
+};
+
+function WordTableHeader({ children, className }: WordTableHeaderProps) {
+  return <p className={className}>{children}</p>;
+}
+
 export default function AuthLayout({
   title,
   description,
@@ -57,9 +66,9 @@ export default function AuthLayout({
             className="ml-auto mr-auto flex md:hidden"
           />
           {showMobileWordTableHeader && (
-            <p className="mx-auto mb-2 max-w-74 text-center text-sm font-medium text-text-secondary md:hidden">
+            <WordTableHeader className="mx-auto mb-2 max-w-74 text-center text-sm font-medium text-text-secondary md:hidden">
               {wordTableHeader}
-            </p>
+            </WordTableHeader>
           )}
           <section
             className="mt-8 flex flex-1 flex-col items-start justify-start rounded-t-[26px] bg-accent-muted px-4 pt-8 pb-8
@@ -80,9 +89,9 @@ export default function AuthLayout({
             </div>
             {children}
           </section>
-          <p className="mt-4 hidden max-w-162 text-center text-sm font-medium text-text-secondary md:block lg:hidden">
+          <WordTableHeader className="mt-4 hidden max-w-162 text-center text-sm font-medium text-text-secondary md:block lg:hidden">
             {wordTableHeader}
-          </p>
+          </WordTableHeader>
         </div>
 
         <div className="hidden flex-col items-center gap-4 lg:flex">
@@ -93,9 +102,9 @@ export default function AuthLayout({
             height={498}
             className="h-auto w-124.5"
           />
-          <p className="max-w-124.5 text-center text-lg font-medium text-text-secondary">
+          <WordTableHeader className="max-w-124.5 text-center text-lg font-medium text-text-secondary">
             {wordTableHeader}
-          </p>
+          </WordTableHeader>
         </div>
       </div>
     </main>

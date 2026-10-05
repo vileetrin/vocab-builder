@@ -32,5 +32,7 @@
   "loginDescription": "Please enter your login details to continue using our service:",
   "dictionarySeoTitle": "Dictionary",
   "dictionarySeoDescription": "Review your saved words, translations, grammar notes, and vocabulary learning progress.",
+  "dictionaryTitle": "Dictionary",
+  "dictionaryIntro": "Review your saved vocabulary and track learning progress across words, translations, and grammar.",
   "wordTableHeader": "Word · Translation · Grammar · Progress"
 }
