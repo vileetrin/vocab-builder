@@ -1,0 +1,23 @@
+{
+  "homeTitle": "Привіт, світе!",
+  "localeLabel": "Мова інтерфейсу",
+  "en": "Англійська",
+  "uk": "Українська",
+  "authHome": "Головна VocabBuilder",
+  "registrationTitle": "Реєстрація",
+  "registrationDescription": "Щоб почати користуватися сервісом, заповніть форму реєстрації нижче. Усі поля обов'язкові:",
+  "name": "Ім'я",
+  "email": "Електронна пошта",
+  "password": "Пароль",
+  "showPassword": "Показати пароль",
+  "hidePassword": "Сховати пароль",
+  "signupFailed": "Не вдалося зареєструватися. Спробуйте ще раз.",
+  "registrationSuccess": "Реєстрація успішна.",
+  "register": "Зареєструватися",
+  "registering": "Реєструємо...",
+  "login": "Увійти",
+  "validationNameMin": "Ім'я має містити щонайменше 2 символи.",
+  "validationEmailInvalid": "Введіть коректну електронну пошту.",
+  "validationPasswordInvalid": "Пароль має містити щонайменше 6 англійських літер і 1 цифру.",
+  "loginTitle": "Вхід"
+}

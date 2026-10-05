@@ -1,0 +1,23 @@
+{
+  "homeTitle": "Hello World!",
+  "localeLabel": "Interface language",
+  "en": "English",
+  "uk": "Ukrainian",
+  "authHome": "VocabBuilder home",
+  "registrationTitle": "Register",
+  "registrationDescription": "To start using our services, please fill out the registration form below. All fields are mandatory:",
+  "name": "Name",
+  "email": "Email",
+  "password": "Password",
+  "showPassword": "Show password",
+  "hidePassword": "Hide password",
+  "signupFailed": "Signup failed. Try again.",
+  "registrationSuccess": "Registration successful.",
+  "register": "Register",
+  "registering": "Registering...",
+  "login": "Login",
+  "validationNameMin": "Name must contain at least 2 characters.",
+  "validationEmailInvalid": "Enter a valid email address.",
+  "validationPasswordInvalid": "Password must contain at least 6 English letters and 1 number.",
+  "loginTitle": "Login"
+}
