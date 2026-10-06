@@ -63,5 +63,21 @@
   "dictionarySeoDescription": "Переглядайте збережені слова, переклади, граматичні нотатки та прогрес у вивченні лексики.",
   "dictionaryTitle": "Словник",
   "dictionaryIntro": "Переглядайте збережену лексику та відстежуйте прогрес за словами, перекладами й граматикою.",
-  "wordTableHeader": "Слово · Переклад · Граматика · Прогрес"
+  "wordTableHeader": "Слово · Переклад · Граматика · Прогрес",
+  "appHome": "Відкрити словник",
+  "appNavigationLabel": "Навігація застосунку",
+  "closeMenu": "Закрити меню",
+  "navDictionary": "Словник",
+  "navRecommended": "Рекомендоване",
+  "navTraining": "Тренування",
+  "appUserName": "Користувач",
+  "logOut": "Вийти",
+  "recommendedSeoTitle": "Рекомендовані слова",
+  "recommendedSeoDescription": "Переглядайте рекомендації слів для наступної навчальної сесії.",
+  "recommendedTitle": "Рекомендоване",
+  "recommendedIntro": "Рекомендована лексика з'явиться тут.",
+  "trainingSeoTitle": "Тренування",
+  "trainingSeoDescription": "Тренуйте збережені та рекомендовані слова у сфокусованих сесіях.",
+  "trainingTitle": "Тренування",
+  "trainingIntro": "Тренувальні сесії з'являться тут."
 }

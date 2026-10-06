@@ -63,5 +63,21 @@
   "dictionarySeoDescription": "Review your saved words, translations, grammar notes, and vocabulary learning progress.",
   "dictionaryTitle": "Dictionary",
   "dictionaryIntro": "Review your saved vocabulary and track learning progress across words, translations, and grammar.",
-  "wordTableHeader": "Word · Translation · Grammar · Progress"
+  "wordTableHeader": "Word · Translation · Grammar · Progress",
+  "appHome": "Open dictionary",
+  "appNavigationLabel": "App navigation",
+  "closeMenu": "Close menu",
+  "navDictionary": "Dictionary",
+  "navRecommended": "Recommended",
+  "navTraining": "Training",
+  "appUserName": "User",
+  "logOut": "Log Out",
+  "recommendedSeoTitle": "Recommended words",
+  "recommendedSeoDescription": "Review vocabulary recommendations prepared for your next learning session.",
+  "recommendedTitle": "Recommended",
+  "recommendedIntro": "Recommended vocabulary will appear here.",
+  "trainingSeoTitle": "Training",
+  "trainingSeoDescription": "Practice saved and recommended words in focused vocabulary training sessions.",
+  "trainingTitle": "Training",
+  "trainingIntro": "Training sessions will appear here."
 }

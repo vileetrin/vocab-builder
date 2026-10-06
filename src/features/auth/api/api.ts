@@ -1,4 +1,5 @@
 import { apiClient } from "@/lib/api/client";
+import { readAuthToken } from "@/features/auth/session";
 
 export type SignupPayload = {
   name: string;
@@ -35,4 +36,20 @@ export async function signinUser(payload: SigninPayload) {
   );
 
   return data;
+}
+
+export async function signoutUser() {
+  const token = readAuthToken();
+
+  await apiClient.post(
+    "/users/signout",
+    undefined,
+    token
+      ? {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      : undefined,
+  );
 }

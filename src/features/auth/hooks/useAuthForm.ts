@@ -6,6 +6,7 @@ import { type ChangeEvent, type SubmitEvent, useState } from "react";
 
 import { useRouter } from "@/i18n/navigation";
 import { type ApiErrorResponse } from "@/types/api";
+import { saveAuthSession } from "@/features/auth/session";
 
 type AuthFormErrors<TValues> = Partial<Record<keyof TValues, string>>;
 
@@ -13,8 +14,13 @@ type UseAuthFormOptions<TValues, TPayload> = {
   initialValues: TValues;
   validate: (values: TValues) => AuthFormErrors<TValues>;
   buildPayload: (values: TValues) => TPayload;
-  mutationFn: (payload: TPayload) => Promise<unknown>;
+  mutationFn: (payload: TPayload) => Promise<AuthResponse>;
   redirectTo: string;
+};
+
+type AuthResponse = {
+  name: string;
+  token: string;
 };
 
 export function getAuthErrorMessage(error: Error, fallbackMessage: string) {
@@ -37,7 +43,8 @@ export function useAuthForm<TValues extends object, TPayload>({
   const [errors, setErrors] = useState<AuthFormErrors<TValues>>({});
   const mutation = useMutation({
     mutationFn,
-    onSuccess: () => {
+    onSuccess: (data) => {
+      saveAuthSession(data.token, data.name);
       setValues(initialValues);
       setErrors({});
       router.replace(redirectTo);

@@ -11,7 +11,21 @@ import {
 import { getPathname, usePathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 
-export default function LocaleSwitcher() {
+type LocaleSwitcherProps = {
+  className?: string;
+  triggerClassName?: string;
+  menuClassName?: string;
+  menuPositionClassName?: string;
+  optionClassName?: string;
+};
+
+export default function LocaleSwitcher({
+  className = "",
+  triggerClassName = "bg-surface text-text-primary shadow-[0_8px_24px_rgb(133_170_159/28%)] hover:bg-accent-muted",
+  menuClassName = "bg-text-on-accent shadow-[0_12px_32px_rgb(18_20_23/14%)]",
+  menuPositionClassName = "right-0",
+  optionClassName = "text-text-primary hover:bg-accent-muted focus-visible:bg-accent-muted",
+}: LocaleSwitcherProps) {
   const locale = useLocale();
   const pathname = usePathname();
   const t = useTranslations();
@@ -117,13 +131,16 @@ export default function LocaleSwitcher() {
     };
 
   return (
-    <div ref={containerRef} className="relative z-50 text-sm font-medium">
+    <div
+      ref={containerRef}
+      className={`relative z-50 text-sm font-medium ${className}`}
+    >
       <button
         type="button"
         aria-label={t("localeLabel")}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
-        className="inline-flex min-w-32 items-center justify-between gap-4 rounded-2xl bg-surface py-2 pr-4 pl-3 text-sm font-semibold text-text-primary shadow-[0_8px_24px_rgb(133_170_159/28%)] outline-none transition-colors hover:bg-accent-muted disabled:opacity-60"
+        className={`inline-flex min-w-32 items-center justify-between gap-4 rounded-2xl py-2 pr-4 pl-3 text-sm font-semibold outline-none transition-colors disabled:opacity-60 ${triggerClassName}`}
         onClick={() => setIsOpen((current) => !current)}
         onKeyDown={handleTriggerKeyDown}
       >
@@ -135,8 +152,14 @@ export default function LocaleSwitcher() {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 z-50 mt-2 min-w-32 rounded-2xl bg-text-on-accent p-3 shadow-[0_12px_32px_rgb(18_20_23/14%)]">
-          <ul role="listbox" aria-label={t("localeLabel")} className="flex flex-col gap-1">
+        <div
+          className={`absolute ${menuPositionClassName} z-50 mt-2 min-w-32 rounded-2xl p-3 ${menuClassName}`}
+        >
+          <ul
+            role="listbox"
+            aria-label={t("localeLabel")}
+            className="flex flex-col gap-1"
+          >
             {routing.locales.map((availableLocale, index) => (
               <li key={availableLocale}>
                 <a
@@ -146,7 +169,7 @@ export default function LocaleSwitcher() {
                   href={getLocaleHref(availableLocale)}
                   role="option"
                   aria-selected={locale === availableLocale}
-                  className="block w-full cursor-pointer px-4 py-2 text-left text-sm text-text-primary outline-none transition-colors hover:bg-accent-muted hover:rounded-lg focus-visible:bg-accent-muted"
+                  className={`block w-full cursor-pointer rounded-lg px-4 py-2 text-left text-sm outline-none transition-colors ${optionClassName}`}
                   onClick={() => setIsOpen(false)}
                   onFocus={() => setActiveIndex(index)}
                   onKeyDown={handleOptionKeyDown(index)}

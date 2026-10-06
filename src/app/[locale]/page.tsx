@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 
-import Logo from "@/assets/icons/app-icon.svg";
+import BrandLink from "@/features/app-shell/BrandLink";
 import LocaleSwitcher from "@/features/i18n/LocaleSwitcher";
 import { buildPageMetadata } from "@/i18n/metadata";
 import { Link } from "@/i18n/navigation";
@@ -46,14 +46,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-surface text-text-primary">
       <header className="relative z-30 mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-4 md:px-8 md:py-6">
-        <Link
-          href="/"
-          aria-label={t("authHome")}
-          className="flex items-center gap-3"
-        >
-          <Logo className="h-10 w-10" />
-          <span className="text-lg font-semibold">VocabBuilder</span>
-        </Link>
+        <BrandLink ariaLabel={t("authHome")} />
         <nav
           aria-label={t("homeNavigationLabel")}
           className="flex items-center gap-3"

@@ -1,9 +1,8 @@
 import { type ReactNode } from "react";
 
-import Logo from "@/assets/icons/app-icon.svg";
 import RegistrationImage from "@/assets/images/RegistrationImage.png";
+import BrandLink from "@/features/app-shell/BrandLink";
 import LocaleSwitcher from "@/features/i18n/LocaleSwitcher";
-import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 
@@ -43,14 +42,11 @@ export default function AuthLayout({
       md:px-9 md:pt-6
       lg:pl-25"
       >
-        <Link
-          href="/"
-          aria-label={t("authHome")}
+        <BrandLink
+          ariaLabel={t("authHome")}
           className="flex flex-row items-center gap-4"
-        >
-          <Logo className="h-9 w-9" />
-          <span className="text-lg font-semibold">VocabBuilder</span>
-        </Link>
+          logoClassName="h-9 w-9"
+        />
         <LocaleSwitcher />
       </header>
       <div

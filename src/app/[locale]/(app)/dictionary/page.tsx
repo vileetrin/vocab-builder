@@ -22,7 +22,7 @@ export default function Dictionary() {
   const t = useTranslations();
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-6 px-4 py-8">
+    <main className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-8 md:px-8">
       <header className="flex flex-col gap-2">
         <h1 className="text-3xl font-semibold">{t("dictionaryTitle")}</h1>
         <p className="max-w-2xl text-base text-text-secondary">
