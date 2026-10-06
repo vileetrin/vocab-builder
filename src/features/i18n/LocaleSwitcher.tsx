@@ -5,20 +5,18 @@ import {
   useEffect,
   useRef,
   useState,
-  useTransition,
   type KeyboardEvent as ReactKeyboardEvent,
 } from "react";
 
-import { usePathname, useRouter } from "@/i18n/navigation";
-import { routing, type Locale } from "@/i18n/routing";
+import { getPathname, usePathname } from "@/i18n/navigation";
+import { routing } from "@/i18n/routing";
 
 export default function LocaleSwitcher() {
   const locale = useLocale();
   const pathname = usePathname();
-  const router = useRouter();
   const t = useTranslations();
   const containerRef = useRef<HTMLDivElement>(null);
-  const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const optionRefs = useRef<Array<HTMLAnchorElement | null>>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(() =>
     Math.max(
@@ -28,7 +26,6 @@ export default function LocaleSwitcher() {
       0,
     ),
   );
-  const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
     if (!isOpen) {
@@ -74,12 +71,12 @@ export default function LocaleSwitcher() {
     setIsOpen(true);
   };
 
-  const handleLocaleSelect = (nextLocale: Locale) => {
-    setIsOpen(false);
-    startTransition(() => {
-      router.replace(pathname, { locale: nextLocale });
+  const getLocaleHref = (nextLocale: (typeof routing.locales)[number]) =>
+    getPathname({
+      href: pathname,
+      locale: nextLocale,
+      forcePrefix: true,
     });
-  };
 
   const handleTriggerKeyDown = (
     event: ReactKeyboardEvent<HTMLButtonElement>,
@@ -95,8 +92,7 @@ export default function LocaleSwitcher() {
   };
 
   const handleOptionKeyDown =
-    (index: number, optionLocale: Locale) =>
-    (event: ReactKeyboardEvent<HTMLButtonElement>) => {
+    (index: number) => (event: ReactKeyboardEvent<HTMLAnchorElement>) => {
       if (event.key === "ArrowDown") {
         event.preventDefault();
         setActiveIndex((index + 1) % routing.locales.length);
@@ -118,22 +114,16 @@ export default function LocaleSwitcher() {
         event.preventDefault();
         setActiveIndex(routing.locales.length - 1);
       }
-
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        handleLocaleSelect(optionLocale);
-      }
     };
 
   return (
-    <div ref={containerRef} className="relative text-sm font-medium">
+    <div ref={containerRef} className="relative z-50 text-sm font-medium">
       <button
         type="button"
         aria-label={t("localeLabel")}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
-        className="inline-flex min-w-32 items-center justify-between gap-4 rounded-2xl border border-accent bg-surface py-2 pr-4 pl-3 text-sm font-semibold text-text-primary outline-none disabled:opacity-60"
-        disabled={isPending}
+        className="inline-flex min-w-32 items-center justify-between gap-4 rounded-2xl bg-surface py-2 pr-4 pl-3 text-sm font-semibold text-text-primary shadow-[0_8px_24px_rgb(133_170_159/28%)] outline-none transition-colors hover:bg-accent-muted disabled:opacity-60"
         onClick={() => setIsOpen((current) => !current)}
         onKeyDown={handleTriggerKeyDown}
       >
@@ -145,24 +135,24 @@ export default function LocaleSwitcher() {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 z-10 mt-2 min-w-32 rounded-2xl bg-text-on-accent py-2 shadow-[0_12px_32px_rgb(18_20_23_/_14%)]">
-          <ul role="listbox" aria-label={t("localeLabel")}>
+        <div className="absolute right-0 z-50 mt-2 min-w-32 rounded-2xl bg-text-on-accent p-3 shadow-[0_12px_32px_rgb(18_20_23/14%)]">
+          <ul role="listbox" aria-label={t("localeLabel")} className="flex flex-col gap-1">
             {routing.locales.map((availableLocale, index) => (
               <li key={availableLocale}>
-                <button
+                <a
                   ref={(element) => {
                     optionRefs.current[index] = element;
                   }}
-                  type="button"
+                  href={getLocaleHref(availableLocale)}
                   role="option"
                   aria-selected={locale === availableLocale}
-                  className="w-full px-4 py-2 text-left text-sm text-text-primary outline-none hover:bg-accent-muted"
-                  onClick={() => handleLocaleSelect(availableLocale)}
+                  className="block w-full cursor-pointer px-4 py-2 text-left text-sm text-text-primary outline-none transition-colors hover:bg-accent-muted hover:rounded-lg focus-visible:bg-accent-muted"
+                  onClick={() => setIsOpen(false)}
                   onFocus={() => setActiveIndex(index)}
-                  onKeyDown={handleOptionKeyDown(index, availableLocale)}
+                  onKeyDown={handleOptionKeyDown(index)}
                 >
                   {t(availableLocale)}
-                </button>
+                </a>
               </li>
             ))}
           </ul>

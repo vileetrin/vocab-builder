@@ -40,3 +40,70 @@ body {
   color: var(--foreground);
   font-family: var(--font-main), sans-serif;
 }
+
+a[href],
+button:not(:disabled),
+[role="button"] {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+.auth-corner-gradient {
+  display: none;
+}
+
+.auth-mobile-image,
+.auth-desktop-illustration {
+  flex-shrink: 0;
+}
+
+@media (max-height: 760px) {
+  .auth-mobile-image {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .auth-corner-gradient {
+    position: absolute;
+    right: -180px;
+    bottom: -180px;
+    z-index: 0;
+    display: block;
+    width: 520px;
+    height: 520px;
+    pointer-events: none;
+  }
+
+  .auth-corner-gradient::before {
+    position: absolute;
+    inset: 0;
+    content: "";
+    border-radius: 9999px;
+    background: rgb(133 170 159 / 42%);
+    filter: blur(90px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .auth-corner-gradient {
+    right: -260px;
+    bottom: -260px;
+    width: 760px;
+    height: 760px;
+  }
+
+  .auth-corner-gradient::before {
+    background: rgb(133 170 159 / 46%);
+    filter: blur(130px);
+  }
+}
+
+@media (min-width: 1440px) and (min-height: 720px) {
+  .auth-desktop-illustration {
+    display: flex;
+  }
+}

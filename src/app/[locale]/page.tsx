@@ -45,7 +45,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-surface text-text-primary">
-      <header className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-4 md:px-8 md:py-6">
+      <header className="relative z-30 mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-4 md:px-8 md:py-6">
         <Link
           href="/"
           aria-label={t("authHome")}

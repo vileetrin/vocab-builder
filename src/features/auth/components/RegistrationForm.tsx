@@ -99,7 +99,7 @@ export default function RegistrationForm() {
         )}
         <button
           type="submit"
-          className="w-full rounded-[30px] bg-accent p-4 text-base font-bold text-text-on-accent disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full rounded-[30px] bg-accent p-4 text-base font-bold text-text-on-accent transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:hover:bg-accent disabled:opacity-60"
           disabled={mutation.isPending}
         >
           {mutation.isPending ? t("registering") : t("register")}

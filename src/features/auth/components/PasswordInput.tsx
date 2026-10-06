@@ -46,7 +46,7 @@ export default function PasswordInput({
         />
         <button
           type="button"
-          className="absolute right-4 top-1/2 flex -translate-y-1/2 text-text-primary"
+          className="absolute right-3 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full text-text-primary transition-colors hover:bg-accent-muted focus-visible:bg-accent-muted focus-visible:outline-none"
           aria-label={isPasswordVisible ? hidePasswordLabel : showPasswordLabel}
           aria-controls="password"
           aria-pressed={isPasswordVisible}
