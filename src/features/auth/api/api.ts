@@ -1,24 +1,24 @@
 import { apiClient } from "@/lib/api/client";
 import { readAuthToken } from "@/features/auth/session";
 
-export type SignupPayload = {
+type SignupPayload = {
   name: string;
   email: string;
   password: string;
 };
 
-export type SignupResponse = {
+type SignupResponse = {
   email: string;
   name: string;
   token: string;
 };
 
-export type SigninPayload = {
+type SigninPayload = {
   email: string;
   password: string;
 };
 
-export type SigninResponse = SignupResponse;
+type SigninResponse = SignupResponse;
 
 export async function signupUser(payload: SignupPayload) {
   const { data } = await apiClient.post<SignupResponse>(
