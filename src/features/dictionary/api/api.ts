@@ -1,12 +1,23 @@
 import { apiClient } from "@/lib/api/client";
 import { readAuthToken } from "@/features/auth/session";
-import type {
+import {
+    CreateNewWordPayload,
     GetOwnDictionaryParams,
     GetOwnDictionaryResponse,
     OwnDictionaryPage,
     OwnDictionaryWord,
     OwnDictionaryWordResponse
 } from "@/features/dictionary/api/types";
+
+function getAuthHeaders() {
+    const token = readAuthToken();
+
+    return token
+        ? {
+              Authorization: `Bearer ${token}`
+          }
+        : undefined;
+}
 
 function mapOwnDictionaryWord(word: OwnDictionaryWordResponse): OwnDictionaryWord {
     return {
@@ -19,20 +30,10 @@ function mapOwnDictionaryWord(word: OwnDictionaryWordResponse): OwnDictionaryWor
 }
 
 export async function getOwnDictionary(params: GetOwnDictionaryParams = {}): Promise<OwnDictionaryPage> {
-    const token = readAuthToken();
-    const { data } = await apiClient.get<GetOwnDictionaryResponse>(
-        "/words/own",
-        {
-            params,
-            ...(token
-                ? {
-                      headers: {
-                          Authorization: `Bearer ${token}`
-                      }
-                  }
-                : {})
-        }
-    );
+    const { data } = await apiClient.get<GetOwnDictionaryResponse>("/words/own", {
+        params,
+        headers: getAuthHeaders()
+    });
 
     return {
         results: data.results.map(mapOwnDictionaryWord),
@@ -40,4 +41,12 @@ export async function getOwnDictionary(params: GetOwnDictionaryParams = {}): Pro
         page: data.page,
         perPage: data.perPage
     };
+}
+
+export async function createNewWord(payload: CreateNewWordPayload): Promise<OwnDictionaryWord> {
+    const { data } = await apiClient.post<OwnDictionaryWordResponse>(`/words/create`, payload, {
+        headers: getAuthHeaders()
+    });
+
+    return mapOwnDictionaryWord(data);
 }
