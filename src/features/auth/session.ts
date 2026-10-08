@@ -1,5 +1,9 @@
-export const AUTH_TOKEN_COOKIE = "vocab_builder_token";
-export const AUTH_USER_NAME_COOKIE = "vocab_builder_user_name";
+import {
+  AUTH_TOKEN_COOKIE,
+  AUTH_USER_NAME_COOKIE,
+} from "@/features/auth/cookies";
+
+export { AUTH_TOKEN_COOKIE, AUTH_USER_NAME_COOKIE };
 
 const COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 7;
 

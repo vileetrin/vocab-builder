@@ -27,7 +27,7 @@ export default function Dashboard<TItem extends DashboardItem>({ items, extraCol
     return (
         <div className="overflow-hidden rounded-lg bg-white shadow-[0_8px_24px_rgb(133_170_159/12%)]">
             <div className="overflow-x-auto">
-                <table className="w-full min-w-180 table-fixed border-separate border-spacing-0 text-left">
+                <table className="w-full min-w-max table-auto border-separate border-spacing-0 text-left md:min-w-180 md:table-fixed">
                     <thead className="bg-accent-muted text-text-primary">
                         <tr className="text-xs font-medium sm:text-sm md:text-base">
                             <th className="border-border w-[28%] border-r border-b px-2 py-3 first:rounded-tl-lg sm:px-3 md:px-5 md:py-5">
