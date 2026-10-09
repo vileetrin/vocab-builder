@@ -9,8 +9,9 @@ import CloseIcon from "@/assets/icons/CloseIcon.svg";
 type CommonDialogProps = {
     open: boolean;
     onOpenChange: (open: boolean) => void;
-    trigger: ReactNode;
+    trigger?: ReactNode;
     title?: ReactNode;
+    accessibleTitle?: ReactNode;
     description?: ReactNode;
     children: ReactNode;
     classes?: {
@@ -26,6 +27,7 @@ export function CommonDialog({
     onOpenChange,
     trigger,
     title,
+    accessibleTitle,
     description,
     children,
     classes
@@ -35,7 +37,7 @@ export function CommonDialog({
 
     return (
         <Dialog.Root open={open} onOpenChange={onOpenChange}>
-            <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>
+            {trigger && <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>}
             <Dialog.Portal>
                 <Dialog.Overlay className="fixed inset-0 z-40 bg-text-primary/40" />
                 <Dialog.Content
@@ -63,6 +65,7 @@ export function CommonDialog({
                             )}
                         </div>
                     )}
+                    {!title && accessibleTitle && <Dialog.Title className="sr-only">{accessibleTitle}</Dialog.Title>}
 
                     {children}
                 </Dialog.Content>

@@ -4,15 +4,15 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
-import DotsIcon from "@/assets/icons/DotsIcon.svg";
 import Dashboard, { type DashboardColumn } from "@/features/common/dashboard/Dashboard";
+import DashboardActions from "@/features/common/dashboard/DashboardActions/DashboardActions";
 import DashboardFilters from "@/features/common/dashboard/filters/DashboardFilters";
 import Pagination from "@/features/common/dashboard/pagination/Pagination";
 import ProgressCircle from "@/features/common/dashboard/ProgressCircle";
 import { getOwnDictionary } from "@/features/dictionary/api/api";
+import DictionaryRowActions from "@/features/dictionary/components/DictionaryRowActions";
 import type { OwnDictionaryWord } from "@/features/dictionary/api/types";
 import { queryKeys } from "@/lib/api/query-keys";
-import DashboardActions from "@/features/common/dashboard/DashboardActions/DashboardActions";
 
 const WORDS_PER_PAGE = 7;
 
@@ -62,15 +62,7 @@ export default function DictionaryClient() {
         {
             key: "actions",
             className: "w-11 text-center sm:w-14 md:w-18",
-            render: (item) => (
-                <button
-                    type="button"
-                    aria-label={t("dashboardOpenRowMenu", { word: item.word })}
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-full text-text-primary transition-colors hover:bg-accent-muted md:h-10 md:w-10"
-                >
-                    <DotsIcon className="h-3 w-4 md:h-4 md:w-5" />
-                </button>
-            )
+            render: (item) => <DictionaryRowActions word={item} />
         }
     ];
 

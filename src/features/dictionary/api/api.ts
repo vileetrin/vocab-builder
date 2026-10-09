@@ -2,6 +2,7 @@ import { apiClient } from "@/lib/api/client";
 import { readAuthToken } from "@/features/auth/session";
 import {
     CreateNewWordPayload,
+    EditWordPayload,
     GetOwnDictionaryParams,
     GetOwnDictionaryResponse,
     OwnDictionaryPage,
@@ -53,4 +54,18 @@ export async function createNewWord(payload: CreateNewWordPayload): Promise<OwnD
     });
 
     return mapOwnDictionaryWord(data);
+}
+
+export async function editWord(id: string, payload: EditWordPayload): Promise<OwnDictionaryWord> {
+    const { data } = await apiClient.patch<OwnDictionaryWordResponse>(`/words/edit/${id}`, payload, {
+        headers: getAuthHeaders()
+    });
+
+    return mapOwnDictionaryWord(data);
+}
+
+export async function deleteWord(id: string) {
+    await apiClient.delete(`/words/delete/${id}`, {
+        headers: getAuthHeaders()
+    });
 }

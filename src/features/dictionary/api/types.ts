@@ -41,3 +41,5 @@ export type CreateNewWordPayload = {
     ua: string;
     category: string;
 };
+
+export type EditWordPayload = CreateNewWordPayload;
