@@ -3,7 +3,6 @@ export type OwnDictionaryWordResponse = {
     en: string;
     ua: string;
     category: string;
-    isIrregular?: boolean;
     owner: string;
     progress: number;
 };
@@ -28,7 +27,6 @@ export type GetOwnDictionaryParams = {
     limit?: number;
     keyword?: string;
     category?: string;
-    isIrregular?: boolean;
 };
 
 export type OwnDictionaryPage = {
@@ -42,5 +40,4 @@ export type CreateNewWordPayload = {
     en: string;
     ua: string;
     category: string;
-    isIrregular: boolean;
 };

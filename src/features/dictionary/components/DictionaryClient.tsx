@@ -21,12 +21,10 @@ export default function DictionaryClient() {
     const [page, setPage] = useState(1);
     const [keyword, setKeyword] = useState("");
     const [category, setCategory] = useState<string>();
-    const [isIrregular, setIsIrregular] = useState<boolean>();
     const trimmedKeyword = keyword.trim();
     const filters = {
         ...(trimmedKeyword ? { keyword: trimmedKeyword } : {}),
-        ...(category ? { category } : {}),
-        ...(typeof isIrregular === "boolean" ? { isIrregular } : {})
+        ...(category ? { category } : {})
     };
     const { data, isFetching } = useQuery({
         queryKey: queryKeys.words.own(page, WORDS_PER_PAGE, filters),
@@ -82,7 +80,6 @@ export default function DictionaryClient() {
                 <DashboardFilters
                     keyword={keyword}
                     category={category}
-                    isIrregular={isIrregular}
                     onKeywordChange={(nextKeyword) => {
                         setKeyword(nextKeyword);
                         setPage(1);
@@ -91,14 +88,9 @@ export default function DictionaryClient() {
                         setCategory(nextCategory);
                         setPage(1);
                     }}
-                    onRegularityChange={(nextIsIrregular) => {
-                        setIsIrregular(nextIsIrregular);
-                        setPage(1);
-                    }}
                     onClear={() => {
                         setKeyword("");
                         setCategory(undefined);
-                        setIsIrregular(undefined);
                         setPage(1);
                     }}
                 />

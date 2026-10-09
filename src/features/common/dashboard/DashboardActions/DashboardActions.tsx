@@ -1,11 +1,11 @@
 import StudyWordsStatistic from "@/features/common/dashboard/DashboardActions/StudyWordsStatistic";
-import AddNewWordButton from "@/features/common/dashboard/DashboardActions/AddNewWordButton";
+import AddNewWordDialog from "@/features/common/dashboard/DashboardActions/AddNewWordDialog";
 
 export default function DashboardActions() {
     return (
         <div className="flex flex-row items-center gap-4">
             <StudyWordsStatistic />
-            <AddNewWordButton />
+            <AddNewWordDialog />
         </div>
     );
 }

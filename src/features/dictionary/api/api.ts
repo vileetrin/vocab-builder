@@ -19,6 +19,10 @@ function getAuthHeaders() {
         : undefined;
 }
 
+export function hasAuthToken() {
+    return Boolean(readAuthToken());
+}
+
 function mapOwnDictionaryWord(word: OwnDictionaryWordResponse): OwnDictionaryWord {
     return {
         id: word._id,
