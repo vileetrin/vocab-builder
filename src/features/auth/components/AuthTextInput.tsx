@@ -1,29 +1,23 @@
-import { type ChangeEvent, type ComponentProps } from "react";
+import { type ComponentProps } from "react";
 
-type AuthTextInputProps = {
+type AuthTextInputProps = Omit<ComponentProps<"input">, "className" | "type"> & {
   id: string;
-  name: string;
   type: "text" | "email";
   label: string;
-  value: string;
   className: string;
   errorClassName: string;
-  autoComplete: ComponentProps<"input">["autoComplete"];
   error?: string;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
 export default function AuthTextInput({
   id,
-  name,
   type,
   label,
-  value,
   className,
   errorClassName,
   autoComplete,
   error,
-  onChange,
+  ...inputProps
 }: AuthTextInputProps) {
   const errorId = `${id}-error`;
 
@@ -34,15 +28,13 @@ export default function AuthTextInput({
       </label>
       <input
         id={id}
-        name={name}
         type={type}
         placeholder={label}
         autoComplete={autoComplete}
-        value={value}
         className={className}
         aria-invalid={Boolean(error)}
         aria-describedby={error ? errorId : undefined}
-        onChange={onChange}
+        {...inputProps}
       />
       {error && (
         <p id={errorId} className={errorClassName}>

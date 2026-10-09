@@ -1,19 +1,4 @@
-export type RegistrationFormValues = {
-  name: string;
-  email: string;
-  password: string;
-};
-
-export type RegistrationFormErrors = Partial<
-  Record<keyof RegistrationFormValues, string>
->;
-
-export type LoginFormValues = Pick<
-  RegistrationFormValues,
-  "email" | "password"
->;
-
-export type LoginFormErrors = Partial<Record<keyof LoginFormValues, string>>;
+import { z } from "zod";
 
 export type RegistrationValidationMessages = {
   nameMin: string;
@@ -21,13 +6,13 @@ export type RegistrationValidationMessages = {
   passwordInvalid: string;
 };
 
-export const initialRegistrationValues: RegistrationFormValues = {
+export const initialRegistrationValues = {
   name: "",
   email: "",
   password: "",
 };
 
-export const initialLoginValues: LoginFormValues = {
+export const initialLoginValues = {
   email: "",
   password: "",
 };
@@ -50,47 +35,35 @@ function validatePassword(value: string, message: string) {
     : message;
 }
 
-function validateAuthCredentials(
-  values: LoginFormValues,
+export function createLoginSchema(
   messages: Omit<RegistrationValidationMessages, "nameMin">,
 ) {
-  const errors: LoginFormErrors = {};
-  const emailError = validateEmail(values.email, messages.emailInvalid);
-  const passwordError = validatePassword(
-    values.password,
-    messages.passwordInvalid,
-  );
-
-  if (emailError) {
-    errors.email = emailError;
-  }
-
-  if (passwordError) {
-    errors.password = passwordError;
-  }
-
-  return errors;
+  return z.object({
+    email: z
+      .string()
+      .refine((value) => !validateEmail(value, messages.emailInvalid), {
+        message: messages.emailInvalid,
+      }),
+    password: z
+      .string()
+      .refine((value) => !validatePassword(value, messages.passwordInvalid), {
+        message: messages.passwordInvalid,
+      }),
+  });
 }
 
-export function validateRegistrationForm(
-  values: RegistrationFormValues,
+export function createRegistrationSchema(
   messages: RegistrationValidationMessages,
 ) {
-  const errors: RegistrationFormErrors = validateAuthCredentials(
-    values,
-    messages,
-  );
-
-  if (values.name.trim().length < 2) {
-    errors.name = messages.nameMin;
-  }
-
-  return errors;
+  return createLoginSchema(messages).extend({
+    name: z.string().refine((value) => value.trim().length >= 2, {
+      message: messages.nameMin,
+    }),
+  });
 }
 
-export function validateLoginForm(
-  values: LoginFormValues,
-  messages: Omit<RegistrationValidationMessages, "nameMin">,
-) {
-  return validateAuthCredentials(values, messages);
-}
+export type LoginFormValues = z.infer<ReturnType<typeof createLoginSchema>>;
+
+export type RegistrationFormValues = z.infer<
+  ReturnType<typeof createRegistrationSchema>
+>;

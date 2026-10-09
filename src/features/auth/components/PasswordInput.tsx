@@ -1,28 +1,29 @@
 "use client";
 
-import { useState, type ChangeEvent } from "react";
+import { useState, type ComponentProps } from "react";
 
 import EyeOffIcon from "@/assets/icons/EyeOffIcon.svg";
 import EyeOnIcon from "@/assets/icons/EyeOnIcon.svg";
 
-type PasswordInputProps = {
-  value: string;
+type PasswordInputProps = Omit<
+  ComponentProps<"input">,
+  "className" | "id" | "type"
+> & {
   className: string;
   label: string;
   error?: string;
   showPasswordLabel: string;
   hidePasswordLabel: string;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
 export default function PasswordInput({
-  value,
   className,
   label,
   error,
   showPasswordLabel,
   hidePasswordLabel,
-  onChange,
+  autoComplete = "new-password",
+  ...inputProps
 }: PasswordInputProps) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -37,12 +38,11 @@ export default function PasswordInput({
           name="password"
           type={isPasswordVisible ? "text" : "password"}
           placeholder={label}
-          autoComplete="new-password"
-          value={value}
+          autoComplete={autoComplete}
           className={`${className} pr-12`}
           aria-invalid={Boolean(error)}
           aria-describedby={error ? "password-error" : undefined}
-          onChange={onChange}
+          {...inputProps}
         />
         <button
           type="button"

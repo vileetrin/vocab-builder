@@ -1,20 +1,21 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
+import { useForm } from "react-hook-form";
 
 import { signinUser } from "@/features/auth/api/api";
 import AuthTextInput from "@/features/auth/components/AuthTextInput";
 import PasswordInput from "@/features/auth/components/PasswordInput";
 import {
+  createLoginSchema,
   initialLoginValues,
   type LoginFormValues,
-  validateLoginForm,
 } from "@/features/auth/api/validation";
-import {
-  getAuthErrorMessage,
-  useAuthForm,
-} from "@/features/auth/hooks/useAuthForm";
-import { Link } from "@/i18n/navigation";
+import { getAuthErrorMessage } from "@/features/auth/api/errors";
+import { saveAuthSession } from "@/features/auth/session";
+import { Link, useRouter } from "@/i18n/navigation";
 
 const styles = {
   input:
@@ -26,49 +27,65 @@ const styles = {
 
 export default function LoginForm() {
   const t = useTranslations();
-  const { values, errors, mutation, handleChange, handleSubmit } = useAuthForm({
-    initialValues: initialLoginValues,
-    mutationFn: signinUser,
-    redirectTo: "/dictionary",
-    validate: (currentValues) =>
-      validateLoginForm(currentValues, {
+  const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<LoginFormValues>({
+    defaultValues: initialLoginValues,
+    resolver: zodResolver(
+      createLoginSchema({
         emailInvalid: t("validationEmailInvalid"),
         passwordInvalid: t("validationPasswordInvalid"),
       }),
-    buildPayload: (currentValues: LoginFormValues) => {
-      return {
-        email: currentValues.email.trim(),
-        password: currentValues.password,
-      };
+    ),
+  });
+  const mutation = useMutation({
+    mutationFn: signinUser,
+    onSuccess: (data) => {
+      saveAuthSession(data.token, data.name);
+      reset(initialLoginValues);
+      router.replace("/dictionary");
     },
   });
 
   const getInputClassName = (field: keyof LoginFormValues) =>
     `${styles.input} ${errors[field] ? styles.inputError : styles.inputDefault}`;
 
+  const onSubmit = (values: LoginFormValues) => {
+    mutation.mutate({
+      email: values.email.trim(),
+      password: values.password,
+    });
+  };
+
   return (
-    <form className="flex w-full flex-col gap-4" onSubmit={handleSubmit}>
+    <form
+      className="flex w-full flex-col gap-4"
+      onChange={() => mutation.reset()}
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <AuthTextInput
         id="email"
-        name="email"
         type="email"
         label={t("email")}
         autoComplete="email"
-        value={values.email}
         className={getInputClassName("email")}
         errorClassName={styles.error}
-        error={errors.email}
-        onChange={handleChange("email")}
+        error={errors.email?.message}
+        {...register("email")}
       />
 
       <PasswordInput
-        value={values.password}
         className={getInputClassName("password")}
         label={t("password")}
-        error={errors.password}
+        error={errors.password?.message}
+        autoComplete="current-password"
         showPasswordLabel={t("showPassword")}
         hidePasswordLabel={t("hidePassword")}
-        onChange={handleChange("password")}
+        {...register("password")}
       />
 
       <div className="flex flex-col items-center justify-center gap-4">
