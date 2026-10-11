@@ -9,7 +9,7 @@ import UkraineIcon from "@/assets/icons/Ukraine.svg";
 import UnitedKingdomIcon from "@/assets/icons/UnitedKingdom.svg";
 import AddNewWordButton from "@/features/common/dashboard/DashboardActions/AddNewWordButton";
 import AddWordTextInput from "@/features/common/dashboard/DashboardActions/AddWordTextInput";
-import { CATEGORY_OPTIONS } from "@/features/common/dashboard/categoryOptions";
+import { CATEGORY_OPTIONS, type WordCategory } from "@/features/common/dashboard/categoryOptions";
 import { CommonDialog, CommonDialogClose } from "@/features/common/dialog";
 import Dropdown from "@/features/common/dropdown";
 import { clearAuthSession } from "@/features/auth/session";
@@ -22,7 +22,7 @@ export default function AddNewWordDialog() {
     const router = useRouter();
     const queryClient = useQueryClient();
     const [isOpen, setIsOpen] = useState(false);
-    const [category, setCategory] = useState<string>(CATEGORY_OPTIONS[0].value);
+    const [category, setCategory] = useState<WordCategory>(CATEGORY_OPTIONS[0].value);
     const [ua, setUa] = useState("");
     const [en, setEn] = useState("");
     const categoryOptions = CATEGORY_OPTIONS.map((option) => ({
@@ -85,7 +85,7 @@ export default function AddNewWordDialog() {
                     iconClassName="text-text-on-accent"
                     label={t("filterCategoryLabel")}
                     menuClassName="top-[calc(100%+8px)] left-0 max-h-80 w-full rounded-[15px] border border-text-on-accent/30 bg-white py-2 shadow-[0_8px_24px_rgb(18_20_23/12%)]"
-                    onChange={setCategory}
+                    onChange={(value) => setCategory(value as WordCategory)}
                     optionClassName="px-6 py-2.5 text-sm text-text-primary hover:bg-accent-muted"
                     options={categoryOptions}
                     placeholder={t("filterCategoryPlaceholder")}

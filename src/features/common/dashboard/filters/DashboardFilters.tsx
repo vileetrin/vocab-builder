@@ -1,15 +1,15 @@
 import { useTranslations } from "next-intl";
 
 import TrashBinIcon from "@/assets/icons/TrashBinIcon.svg";
-import { CATEGORY_OPTIONS } from "@/features/common/dashboard/categoryOptions";
+import { CATEGORY_OPTIONS, type WordCategory } from "@/features/common/dashboard/categoryOptions";
 import CategoryDropdown, { type CategoryOption } from "@/features/common/dashboard/filters/CategoryDropdown";
 import SearchInput from "@/features/common/dashboard/filters/SearchInput";
 
 type DashboardFiltersProps = {
     keyword: string;
-    category?: string;
+    category?: WordCategory;
     onKeywordChange: (keyword: string) => void;
-    onCategoryChange: (category: string) => void;
+    onCategoryChange: (category: WordCategory) => void;
     onClear: () => void;
 };
 

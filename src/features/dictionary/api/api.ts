@@ -10,7 +10,7 @@ import {
     OwnDictionaryWordResponse
 } from "@/features/dictionary/api/types";
 
-function getAuthHeaders() {
+export function getAuthHeaders() {
     const token = readAuthToken();
 
     return token
@@ -24,7 +24,7 @@ export function hasAuthToken() {
     return Boolean(readAuthToken());
 }
 
-function mapOwnDictionaryWord(word: OwnDictionaryWordResponse): OwnDictionaryWord {
+export function mapOwnDictionaryWord(word: OwnDictionaryWordResponse): OwnDictionaryWord {
     return {
         id: word._id,
         word: word.en,

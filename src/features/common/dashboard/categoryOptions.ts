@@ -11,3 +11,5 @@ export const CATEGORY_OPTIONS = [
     { value: "phrasal verb", labelKey: "categoryPhrasalVerb" },
     { value: "functional phrase", labelKey: "categoryFunctionalPhrase" }
 ] as const;
+
+export type WordCategory = (typeof CATEGORY_OPTIONS)[number]["value"];

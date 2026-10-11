@@ -87,6 +87,7 @@
     "filterCategoryLabel": "Filter by category",
     "filterClearLabel": "Clear filters",
     "addWord": "Add word",
+    "addToDictionary": "Add to dictionary",
     "addingWord": "Adding...",
     "addWordFailed": "Failed to add word. Try again.",
     "trainOneself": "Train oneself",

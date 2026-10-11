@@ -1,3 +1,4 @@
+import { getAuthHeaders } from "@/features/dictionary/api/api";
 import { apiClient } from "@/lib/api/client";
 
 type GetStatisticsResponse = {
@@ -5,7 +6,9 @@ type GetStatisticsResponse = {
 };
 
 export async function getStatistics(): Promise<number> {
-    const { data } = await apiClient.get<GetStatisticsResponse>("/words/statistics");
+    const { data } = await apiClient.get<GetStatisticsResponse>("/words/statistics", {
+        headers: getAuthHeaders()
+    });
 
     return data.totalCount;
 }

@@ -1,8 +1,10 @@
+import type { WordCategory } from "@/features/common/dashboard/categoryOptions";
+
 export type OwnDictionaryWordResponse = {
     _id: string;
     en: string;
     ua: string;
-    category: string;
+    category: WordCategory;
     owner: string;
     progress: number;
 };
@@ -18,7 +20,7 @@ export type OwnDictionaryWord = {
     id: string;
     word: string;
     translation: string;
-    category: string;
+    category: WordCategory;
     progress: number;
 };
 
@@ -26,7 +28,7 @@ export type GetOwnDictionaryParams = {
     page?: number;
     limit?: number;
     keyword?: string;
-    category?: string;
+    category?: WordCategory;
 };
 
 export type OwnDictionaryPage = {
@@ -39,7 +41,7 @@ export type OwnDictionaryPage = {
 export type CreateNewWordPayload = {
     en: string;
     ua: string;
-    category: string;
+    category: WordCategory;
 };
 
 export type EditWordPayload = CreateNewWordPayload;

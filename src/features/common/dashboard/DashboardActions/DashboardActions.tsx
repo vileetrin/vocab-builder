@@ -1,11 +1,5 @@
-import StudyWordsStatistic from "@/features/common/dashboard/DashboardActions/StudyWordsStatistic";
-import AddNewWordDialog from "@/features/common/dashboard/DashboardActions/AddNewWordDialog";
+import { ReactNode } from "react";
 
-export default function DashboardActions() {
-    return (
-        <div className="flex flex-row items-center gap-4">
-            <StudyWordsStatistic />
-            <AddNewWordDialog />
-        </div>
-    );
+export default function DashboardActions({ children }: { children: ReactNode }) {
+    return <div className="flex flex-row items-center gap-4">{children}</div>;
 }
