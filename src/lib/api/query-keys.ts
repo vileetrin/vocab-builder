@@ -17,5 +17,6 @@ export const queryKeys = {
         all: ["recommended"] as const,
         list: (page: number, limit: number, filters: WordFilters) =>
             [...queryKeys.recommended.all, { page, limit, ...filters }] as const
-    }
+    },
+    training: ["training"] as const
 };

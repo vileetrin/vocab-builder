@@ -17,11 +17,15 @@ import { createNewWord, hasAuthToken } from "@/features/dictionary/api/api";
 import { useRouter } from "@/i18n/navigation";
 import { queryKeys } from "@/lib/api/query-keys";
 
-export default function AddNewWordDialog() {
+type AddNewWordDialogProps = {
+    defaultOpen?: boolean;
+};
+
+export default function AddNewWordDialog({ defaultOpen = false }: AddNewWordDialogProps) {
     const t = useTranslations();
     const router = useRouter();
     const queryClient = useQueryClient();
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(defaultOpen);
     const [category, setCategory] = useState<WordCategory>(CATEGORY_OPTIONS[0].value);
     const [ua, setUa] = useState("");
     const [en, setEn] = useState("");
@@ -37,7 +41,7 @@ export default function AddNewWordDialog() {
             setCategory(CATEGORY_OPTIONS[0].value);
             setUa("");
             setEn("");
-            setIsOpen(false);
+            handleOpenChange(false);
         },
         onError: (error) => {
             if (isAxiosError(error) && error.response?.status === 401) {
@@ -65,10 +69,18 @@ export default function AddNewWordDialog() {
         });
     };
 
+    const handleOpenChange = (open: boolean) => {
+        setIsOpen(open);
+
+        if (!open && defaultOpen) {
+            router.replace("/dictionary");
+        }
+    };
+
     return (
         <CommonDialog
             open={isOpen}
-            onOpenChange={setIsOpen}
+            onOpenChange={handleOpenChange}
             trigger={<AddNewWordButton />}
             title={t("addWord")}
             description={t("addWordDescription")}

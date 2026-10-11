@@ -126,5 +126,9 @@
     "trainingSeoTitle": "Training",
     "trainingSeoDescription": "Practice saved and recommended words in focused vocabulary training sessions.",
     "trainingTitle": "Training",
-    "trainingIntro": "Training sessions will appear here."
+    "trainingIntro": "Training sessions will appear here.",
+    "trainingEmptyStateTitle": "You don't have a single word to learn right now.",
+    "trainingEmptyStateDescription": "Create or add a word to start training. Add the vocabulary you want to study, and VocabBuilder will help you practice it.",
+    "trainingEmptyStateAddWord": "Add word",
+    "trainingEmptyStateCancel": "Cancel"
 }

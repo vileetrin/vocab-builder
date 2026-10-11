@@ -16,10 +16,13 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/dictiona
     });
 }
 
-export default function Dictionary() {
+export default async function Dictionary({ searchParams }: PageProps<"/[locale]/dictionary">) {
+    const query = await searchParams;
+    const openAddWordDialog = query.addWord === "true";
+
     return (
         <main className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 pt-8 pb-8 md:px-8 md:pt-20">
-            <DictionaryClient />
+            <DictionaryClient openAddWordDialog={openAddWordDialog} />
         </main>
     );
 }

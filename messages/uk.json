@@ -126,5 +126,9 @@
     "trainingSeoTitle": "Тренування",
     "trainingSeoDescription": "Тренуйте збережені та рекомендовані слова у сфокусованих сесіях.",
     "trainingTitle": "Тренування",
-    "trainingIntro": "Тренувальні сесії з'являться тут."
+    "trainingIntro": "Тренувальні сесії з'являться тут.",
+    "trainingEmptyStateTitle": "Зараз немає жодного слова для вивчення.",
+    "trainingEmptyStateDescription": "Створіть або додайте слово, щоб почати тренування. Додавайте лексику, яку хочете вивчати, а VocabBuilder допоможе її практикувати.",
+    "trainingEmptyStateAddWord": "Додати слово",
+    "trainingEmptyStateCancel": "Скасувати"
 }

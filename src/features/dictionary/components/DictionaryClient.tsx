@@ -13,7 +13,11 @@ import type { OwnDictionaryWord } from "@/features/dictionary/api/types";
 import DictionaryRowActions from "@/features/dictionary/components/DictionaryRowActions";
 import { queryKeys } from "@/lib/api/query-keys";
 
-export default function DictionaryClient() {
+type DictionaryClientProps = {
+    openAddWordDialog?: boolean;
+};
+
+export default function DictionaryClient({ openAddWordDialog = false }: DictionaryClientProps) {
     const t = useTranslations();
     const columns: DashboardColumn<OwnDictionaryWord>[] = [
         {
@@ -47,7 +51,7 @@ export default function DictionaryClient() {
             actions={
                 <>
                     <StudyWordsStatistic />
-                    <AddNewWordDialog />
+                    <AddNewWordDialog defaultOpen={openAddWordDialog} />
                     <TrainingButton />
                 </>
             }

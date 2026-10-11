@@ -34,7 +34,7 @@ export default function LocaleSwitcher({
 
   return (
     <Dropdown
-      className={`z-50 text-sm font-medium ${className}`}
+      className={`relative z-10 text-sm font-medium ${className}`}
       iconClassName="text-text-muted"
       label={t("localeLabel")}
       menuClassName={`${menuPositionClassName} mt-2 min-w-32 rounded-2xl p-3 ${menuClassName}`}
