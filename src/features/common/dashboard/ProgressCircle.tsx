@@ -1,21 +1,48 @@
+import clsx from "clsx";
+
 type ProgressCircleProps = {
-  value: number;
-  label: string;
+    value: number;
+    label: string;
+    classes: {
+        outCircleClass?: string;
+        inCircleClass?: string;
+    };
+    showValue?: boolean;
+    valueLabel?: string;
+    valueText?: string;
 };
 
-export default function ProgressCircle({ value, label }: ProgressCircleProps) {
-  const progress = Math.min(100, Math.max(0, value));
+export default function ProgressCircle({
+    value,
+    label,
+    classes,
+    showValue = false,
+    valueLabel,
+    valueText
+}: ProgressCircleProps) {
+    const progress = Math.min(100, Math.max(0, value));
 
-  return (
-    <div
-      aria-label={label}
-      className="grid h-5 w-5 shrink-0 place-items-center rounded-full md:h-7 md:w-7"
-      role="img"
-      style={{
-        background: `conic-gradient(var(--color-accent) ${progress}%, var(--color-accent-muted) 0)`,
-      }}
-    >
-      <span className="h-3 w-3 rounded-full bg-white md:h-4.5 md:w-4.5" />
-    </div>
-  );
+    return (
+        <div
+            aria-label={label}
+            aria-valuemax={100}
+            aria-valuemin={0}
+            aria-valuenow={progress}
+            aria-valuetext={valueText}
+            className={clsx("grid shrink-0 place-items-center rounded-full", classes.outCircleClass)}
+            role="progressbar"
+            style={{
+                background: `conic-gradient(var(--color-accent) ${progress}%, var(--color-accent-muted) 0)`
+            }}
+        >
+            <span
+                className={clsx(
+                    "flex items-center justify-center rounded-full bg-white text-base text-text-primary",
+                    classes.inCircleClass
+                )}
+            >
+                {showValue && (valueLabel ?? value)}
+            </span>
+        </div>
+    );
 }

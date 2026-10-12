@@ -93,7 +93,10 @@ export default function DictionaryRowActions({ word }: DictionaryRowActionsProps
     const deleteMutation = useMutation({
         mutationFn: () => deleteWord(word.id),
         onSuccess: async () => {
-            await queryClient.invalidateQueries({ queryKey: queryKeys.words.all });
+            await Promise.all([
+                queryClient.invalidateQueries({ queryKey: queryKeys.words.all }),
+                queryClient.invalidateQueries({ queryKey: queryKeys.statistics })
+            ]);
             setIsMenuOpen(false);
         },
         onError: handleAuthError

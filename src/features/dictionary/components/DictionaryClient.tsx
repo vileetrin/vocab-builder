@@ -17,6 +17,11 @@ type DictionaryClientProps = {
     openAddWordDialog?: boolean;
 };
 
+const ProgressCircleClasses = {
+    outCircleClass: "h-5 w-5 md:h-7 md:w-7",
+    inCircleClass: "h-3 w-3 md:h-4.5 md:w-4.5"
+};
+
 export default function DictionaryClient({ openAddWordDialog = false }: DictionaryClientProps) {
     const t = useTranslations();
     const columns: DashboardColumn<OwnDictionaryWord>[] = [
@@ -32,6 +37,7 @@ export default function DictionaryClient({ openAddWordDialog = false }: Dictiona
                     <ProgressCircle
                         value={item.progress}
                         label={t("dashboardProgressLabel", { progress: item.progress })}
+                        classes={ProgressCircleClasses}
                     />
                 </div>
             )

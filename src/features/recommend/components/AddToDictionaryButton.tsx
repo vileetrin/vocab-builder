@@ -21,7 +21,8 @@ export default function AddToDictionaryButton({ word }: { word: RecommendedWord 
         onSuccess: async () => {
             await Promise.all([
                 queryClient.invalidateQueries({ queryKey: queryKeys.words.all }),
-                queryClient.invalidateQueries({ queryKey: queryKeys.recommended.all })
+                queryClient.invalidateQueries({ queryKey: queryKeys.recommended.all }),
+                queryClient.invalidateQueries({ queryKey: queryKeys.statistics })
             ]);
         },
         onError: (error) => {

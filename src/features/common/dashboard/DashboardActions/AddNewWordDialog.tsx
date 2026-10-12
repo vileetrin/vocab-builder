@@ -37,7 +37,10 @@ export default function AddNewWordDialog({ defaultOpen = false }: AddNewWordDial
     const mutation = useMutation({
         mutationFn: createNewWord,
         onSuccess: async () => {
-            await queryClient.invalidateQueries({ queryKey: queryKeys.words.all });
+            await Promise.all([
+                queryClient.invalidateQueries({ queryKey: queryKeys.words.all }),
+                queryClient.invalidateQueries({ queryKey: queryKeys.statistics })
+            ]);
             setCategory(CATEGORY_OPTIONS[0].value);
             setUa("");
             setEn("");
